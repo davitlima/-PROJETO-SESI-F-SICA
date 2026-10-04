@@ -16,11 +16,12 @@ final class EnsaioFiltroTest extends TestCase
         $this->assertNull(compararMedicoes('7', '6', -PHP_FLOAT_MAX, false)['percentual']);
     }
 
-    public function testCalculaEficienciaDeSessentaPorCento(): void
+    public function testCalculaEficienciaDoRelatorio(): void
     {
-        $resultado = compararMedicoes('10', '4');
-        $this->assertSame(6.0, $resultado['reducao']);
-        $this->assertSame(60.0, $resultado['percentual']);
+        $resultado = compararMedicoes('10', '2');
+        $this->assertSame(8.0, $resultado['reducao']);
+        $this->assertSame(80.0, $resultado['eficiencia']);
+        $this->assertSame('EFICIENTE', $resultado['status']);
     }
 
     public function testAumentoGeraEficienciaNegativa(): void
@@ -40,7 +41,8 @@ final class EnsaioFiltroTest extends TestCase
 
     public function testValorInicialZeroNaoDividePorZero(): void
     {
-        $this->assertNull(compararMedicoes('0', '4')['percentual']);
+        $this->expectException(InvalidArgumentException::class);
+        compararMedicoes('0', '4');
     }
 
     public function testAceitaMinimoFisicoDaTemperatura(): void
@@ -48,27 +50,31 @@ final class EnsaioFiltroTest extends TestCase
         $this->assertSame(0.0, compararMedicoes('-273.15', '-273.15', -273.15, false)['reducao']);
     }
 
-    public function testRejeitaTexto(): void
+    public function testRejeitaTurbidezDeSaidaNegativa(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        compararMedicoes('abc', '4');
+        $this->expectExceptionMessage('As medições devem conter valores válidos');
+        compararMedicoes('10', '-2');
     }
 
     public function testRejeitaValorNegativo(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        compararMedicoes('-1', '4');
+        $this->expectExceptionMessage('As medições devem conter valores válidos');
+        compararMedicoes('-10', '2');
     }
 
     public function testRejeitaMedicaoIncompleta(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('As medições devem conter valores válidos');
         compararMedicoes('10', '');
     }
 
-    public function testRejeitaTemperaturaAbaixoDoMinimoFisico(): void
+    public function testRejeitaTurbidezDeEntradaVazia(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        compararMedicoes('-274', '20', -273.15, false);
+        $this->expectExceptionMessage('As medições devem conter valores válidos');
+        compararMedicoes('', '2');
     }
 }
