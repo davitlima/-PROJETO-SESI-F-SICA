@@ -1,0 +1,8 @@
+{
+    "name": "academico/comparacao-filtro",
+    "description": "Comparação simples das medições antes e depois do filtro",
+    "type": "project",
+    "license": "proprietary",
+    "require": { "php": ">=8.3" },
+    "scripts": { "test": "@php tests/EnsaioFiltroTest.php" }
+}
