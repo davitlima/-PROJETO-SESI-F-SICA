@@ -1,8 +1,21 @@
 {
     "name": "academico/comparacao-filtro",
-    "description": "Comparação simples das medições antes e depois do filtro",
+    "description": "ComparaÃ§Ã£o simples das mediÃ§Ãµes antes e depois do filtro",
     "type": "project",
     "license": "proprietary",
-    "require": { "php": ">=8.3" },
-    "scripts": { "test": "@php tests/EnsaioFiltroTest.php" }
+    "require": {
+        "php": ">=8.4"
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit",
+        "coverage": "@php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-text --coverage-html coverage --coverage-clover coverage/clover.xml"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "files": [
+            "models/EnsaioFiltro.php"
+        ]
+    }
 }

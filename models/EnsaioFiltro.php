@@ -2,6 +2,20 @@
 
 declare(strict_types=1);
 
+function classificarMedicao(float $valor, ?float $minimo = null, ?float $maximo = null): string
+{
+    if (!is_finite($valor) || ($minimo !== null && !is_finite($minimo))
+        || ($maximo !== null && !is_finite($maximo))
+        || ($minimo !== null && $maximo !== null && $minimo > $maximo)) {
+        throw new InvalidArgumentException('Medição ou faixa de referência inválida.');
+    }
+    if ($minimo === null && $maximo === null) {
+        return 'sem referência';
+    }
+    return ($minimo !== null && $valor < $minimo) || ($maximo !== null && $valor > $maximo)
+        ? 'fora da referência' : 'dentro da referência';
+}
+
 function compararMedicoes(string $antes, string $depois, float $minimo = 0, bool $calcularPercentual = true): array
 {
     $valores = [];
