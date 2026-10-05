@@ -2,17 +2,6 @@
 
 Projeto escolar em PHP para comparar pH, turbidez, cloro residual livre, dureza e temperatura antes e depois de um biofiltro.
 
-## Instalação e execução
-
-Requisitos: PHP 8.3 ou superior e Composer. No Laravel Herd, selecione PHP 8.3 ou 8.4 e use `public/` como pasta pública. Alternativamente:
-
-```bash
-composer install
-php -S localhost:8080 -t public
-```
-
-Acesse http://localhost:8080. A interface usa PHP, HTML e CSS, sem JavaScript.
-
 ## Algoritmos e estrutura
 
 - `models/EnsaioFiltro.php`: comparação das medições e classificação por limites inclusivos.
@@ -22,13 +11,6 @@ Acesse http://localhost:8080. A interface usa PHP, HTML e CSS, sem JavaScript.
 - `tests/`: uma classe PHPUnit para cada algoritmo.
 
 A redução percentual de turbidez e dureza usa `((antes − depois) / antes) × 100`. Valor inicial zero gera erro no cálculo da eficiência; resultado negativo indica aumento. `eficiencia` contém o percentual e `status` é `EFICIENTE` quando há redução maior que zero, regra escolar adotada porque o relatório não define um limiar mínimo. pH, cloro e temperatura são comparados sem percentual de remoção.
-
-## Testes
-
-```bash
-composer test
-composer coverage
-```
 
 São 24 testes PHPUnit: classificação, validações, eficiência, limites e integração do parecer da amostra. Os oito cenários do relatório são cobertos, incluindo as mensagens de erro esperadas. A cobertura exige Xdebug ou PCOV; o relatório HTML fica em `coverage/index.html`. O percentual deve ser conferido no relatório gerado.
 
