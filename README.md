@@ -12,7 +12,7 @@ Projeto escolar em PHP para comparar pH, turbidez, cloro residual livre, dureza 
 
 A redução percentual de turbidez e dureza usa `((antes − depois) / antes) × 100`. Valor inicial zero gera erro no cálculo da eficiência; resultado negativo indica aumento. `eficiencia` contém o percentual e `status` é `EFICIENTE` quando há redução maior que zero, regra escolar adotada porque o relatório não define um limiar mínimo. pH, cloro e temperatura são comparados sem percentual de remoção.
 
-São 24 testes PHPUnit: classificação, validações, eficiência, limites e integração do parecer da amostra. Os oito cenários do relatório são cobertos, incluindo as mensagens de erro esperadas. A cobertura exige Xdebug ou PCOV; o relatório HTML fica em `coverage/index.html`. O percentual deve ser conferido no relatório gerado.
+São 24 testes PHPUnit: classificação, validações, eficiência, limites e integração do parecer da amostra. Os oito cenários do relatório são cobertos, incluindo as mensagens de erro esperadas. o relatório HTML fica em `coverage/index.html`. O percentual deve ser conferido no relatório gerado.
 
 ## Critérios e limites do parecer escolar
 
